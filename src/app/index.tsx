@@ -1,19 +1,26 @@
-import { StyleSheet, Text, View } from "react-native";
-
+import { alarms } from "@/data/alarms";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 // This is the home screen (route "/").
 // Week 1: change the two lines marked 👇, run the app, commit, push.
 export default function Index() {
-  // 👇 Week 1: replace with your name
-  const studentName = "Devin";
-  // 👇 Week 1: replace with something you want to build this quarter
-  const appIdea = "an alarm management app";
+  return (
+    <FlatList
+    data={(alarms)}
+    renderItem={(r) => <AlarmFolder Alarm={r}/>}
+    ListHeaderComponent={<Header/>}
+    />
+  );
+}
 
+function Header() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>DEV 272 · Mobile Application Development</Text>
-      <Text style={styles.body}>Hello, my name is {studentName}.</Text>
-      <Text style={styles.body}>This quarter I want to build {appIdea}.</Text>
-      <Text style={styles.hint}>Edit src/app/index.tsx to change this screen.</Text>
+      <Text style={styles.title}>Alarms</Text>
+      <View>
+        <Pressable onPress={() => console.log("Folder Interaction")}>
+          <Text>Folder1</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
