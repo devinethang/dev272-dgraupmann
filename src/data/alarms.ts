@@ -21,7 +21,7 @@ export const alarms: Alarm[] = [
     {
         id: "3",
         name: "Head out",
-        time: "7:45:00",
+        time: "7:45",
         selector: "am",
     },
     {
