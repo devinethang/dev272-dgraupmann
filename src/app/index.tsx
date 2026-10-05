@@ -1,5 +1,6 @@
 import { Alarm, alarms } from "@/data/alarms";
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View, } from "react-native";
+import { useState } from "react";
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 // This is the home screen (route "/").
 // Week 1: change the two lines marked 👇, run the app, commit, push.
 export default function Index() {
@@ -15,12 +16,19 @@ export default function Index() {
 }
 
 function Header() {
+  const [query, setQuery] = useState<string>("");
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Alarms</Text>
       <View style={styles.searchBar}>
-        <TextInput placeholder="Search Alarms"/>
-        <Pressable onPress={() => console.log("Folder Interaction")}>
+        <TextInput 
+        placeholder="Search Alarms"
+        value={query}
+        onChangeText={setQuery}
+        autoCapitalize="none"
+        returnKeyType="search"
+        />
+        <Pressable onPress={() => console.log({query})}>
           <Text>Go</Text>
         </Pressable>
       </View>
@@ -67,14 +75,16 @@ const styles = StyleSheet.create({
   row: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: "#f3f4f6"
+    backgroundColor: "#f3f4f6",
+    flexDirection: 'column'
   },
-  rowTitle: { fontWeight: "600" },
-
+  rowTitle: {
+    fontWeight: "600" 
+  },
   searchBar: {
     flexDirection: 'row',
     justifyContent: "center",
     alignItems: "center",
     gap:10
-  }
+  },
 });
