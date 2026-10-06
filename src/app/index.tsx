@@ -1,7 +1,7 @@
 import { Alarm, alarms } from "@/data/alarms";
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-// This is the home screen (route "/").
+// This is the home screen (route "/".).
 // Week 1: change the two lines marked 👇, run the app, commit, push.
 export default function Index() {
   return (
