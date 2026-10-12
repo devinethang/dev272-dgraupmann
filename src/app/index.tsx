@@ -1,8 +1,7 @@
 import { Alarm, alarms } from "@/data/alarms";
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-// This is the home screen (route "/".).
-// Week 1: change the two lines marked 👇, run the app, commit, push.
+
 export default function Index() {
   return (
     <FlatList
@@ -58,16 +57,6 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
-  body: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-  hint: {
-    marginTop: 24,
-    fontSize: 12,
-    color: "#6b7280",
-    textAlign: "center",
-  },
   list: { 
     padding: 16,
     gap: 8 
@@ -75,7 +64,7 @@ const styles = StyleSheet.create({
   row: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: "#f3f4f6",
+    backgroundColor: "#95a7ca",
     flexDirection: 'column'
   },
   rowTitle: {
