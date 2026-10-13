@@ -57,13 +57,13 @@ export default function index() {
                 
 
             </View>
-        <View style={[styles.item, styles.row, styles.timer]}>
+            <View style={[styles.item, styles.row, styles.timer]}>
 
             <Text>
                 {hh} : {mm} : {ss}
             </Text>
 
-        </View>
+            </View>
         </View>
 
         
