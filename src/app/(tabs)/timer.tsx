@@ -71,7 +71,8 @@ export const styles = StyleSheet.create({
   {
     backgroundColor: "#b0c2e6",
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 30
   },
 
     searchButton: {
