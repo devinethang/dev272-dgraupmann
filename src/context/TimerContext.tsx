@@ -1,5 +1,5 @@
 // src/context/FavoritesContext.tsx
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 type TimerContextValue = {
   remaining: number;
@@ -39,4 +39,21 @@ export function TimerProvider({ children }: { children: ReactNode }) {
   
    }, [endTime]);
 
+   return (
+    <TimerContext.Provider value = {{ remaining, startTimer}}>
+        {children}
+    </TimerContext.Provider>
+   )
+
+}
+
+export function useTimer() {
+    const context = useContext(TimerContext);
+
+    // Error Hnadling
+    if (context === undefined) {
+        throw new Error("UseTimer only works inside TimerProvider")
+    }
+
+    return context;
 }
