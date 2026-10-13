@@ -1,11 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function index() {
 const [hours, setHours] = useState<string>("");
 const [minutes, setMinutes] = useState<string>("");
 const [seconds, setSeconds] = useState<string>("");
+const [endTime, setEndTime] = useState<number | null>(null)
+const [remaining, setRemaining] = useState<number>(0);
 
+useEffect(() => {
+    if (endTime === null) {
+        return;
+    }
+
+    const interval = setInterval(() => {
+        const timeLeft = Math.floor((endTime - Date.now()) / 1000 );
+
+        setRemaining(timeLeft);
+
+    }, 1000)
+
+    return () => clearInterval(interval);
+
+ }, [endTime]);
 
     return (
         <View style={styles.body}>
@@ -43,6 +60,12 @@ const [seconds, setSeconds] = useState<string>("");
                     </Pressable>
                 </View>
 
+                <View>
+                    <Text>
+                        {remaining}
+                    </Text>
+                </View>
+
             </View>
 
         </View>
@@ -58,7 +81,6 @@ const [seconds, setSeconds] = useState<string>("");
     const totalSeconds = (h * 3600) + (m * 60) + s;
     console.log(totalSeconds);
 
-    const [endTime, setEndTime] = useState<number | null>(null)
     setEndTime(Date.now() + totalSeconds * 1000);
 
     console.log("Timer ends in: " + endTime);
