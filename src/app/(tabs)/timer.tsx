@@ -13,6 +13,11 @@ const displayHours = Math.floor(remaining / 3600);
 const displayMinutes = Math.floor((remaining % 3600) / 60);
 const displaySeconds = Math.floor ((remaining % 60));
 
+// formated values, converted to string
+const hh = displayHours.toString().padStart(2, "0");
+const mm = displayMinutes.toString().padStart(2, "0");
+const ss = displaySeconds.toString().padStart(2, "0");
+
 useEffect(() => {
     if (endTime === null) {
         return;
@@ -77,7 +82,7 @@ useEffect(() => {
         <View style={[styles.item, styles.row, styles.timer]}>
 
             <Text>
-                {displayHours} : {displayMinutes} : {displaySeconds}
+                {hh} : {mm} : {ss}
             </Text>
 
         </View>
