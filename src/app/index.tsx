@@ -5,6 +5,7 @@ import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-na
 export default function Index() {
   return (
     <FlatList
+    style={styles.main}
     data={(alarms)}
     keyExtractor={(item) => item.id}
     renderItem={({ item }) => <AlarmFolder alarm={ item } />}
@@ -17,7 +18,7 @@ export default function Index() {
 function Header() {
   const [query, setQuery] = useState<string>("");
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.main]}>
       <Text style={styles.title}>Alarms</Text>
       <View style={styles.searchBar}>
         <TextInput 
@@ -28,7 +29,7 @@ function Header() {
         returnKeyType="search"
         />
         <Pressable onPress={() => console.log({query})}>
-          <Text>Go</Text>
+          <Text style={styles.searchButton}>Go</Text>
         </Pressable>
       </View>
     </View>
@@ -44,7 +45,11 @@ function AlarmFolder({ alarm }: { alarm: Alarm }) {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
+  main: {
+    backgroundColor: "#b0c2e6",
+  },
+
   container: {
     flex: 1,
     alignItems: "center",
@@ -59,13 +64,18 @@ const styles = StyleSheet.create({
   },
   list: { 
     padding: 16,
-    gap: 8 
+    gap: 0
   },
   row: {
     padding: 12,
-    borderRadius: 8,
     backgroundColor: "#95a7ca",
-    flexDirection: 'column'
+    flexDirection: 'column',
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+    borderBottomWidth: 0,
+    borderRadius: 8,
+    gap: 2
   },
   rowTitle: {
     fontWeight: "600" 
@@ -74,6 +84,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: "center",
     alignItems: "center",
-    gap:10
+    gap:10,
+    backgroundColor: '#95a7ca',
+    borderRadius: 8,
   },
+  searchButton: {
+    opacity: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    padding: 5
+  }
 });
