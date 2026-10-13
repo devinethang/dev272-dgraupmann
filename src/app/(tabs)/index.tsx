@@ -1,23 +1,30 @@
 import { Alarm, alarms } from "@/data/alarms";
 import { Link } from "expo-router";
 import { useState } from "react";
-import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Index() {
+
+  const [query, setQuery] = useState<string>("");
+
+  const filteredAlarms = alarms.filter (
+    (alarm) => alarm.name.toLowerCase().includes(query.toLowerCase())
+  );
+
   return (
     <FlatList
     style={styles.main}
-    data={(alarms)}
+    data={(filteredAlarms)}
     keyExtractor={(item) => item.id}
     renderItem={({ item }) => <AlarmFolder alarm={ item } />}
-    ListHeaderComponent={<Header/>}
+    ListHeaderComponent={<Header query={query} setQuery={setQuery}/>}
     contentContainerStyle={styles.list}
     />
   );
 }
 
-function Header() {
-  const [query, setQuery] = useState<string>("");
+function Header({query, setQuery,}: {query: string; setQuery: (text: string) => void;}) {
+  
   return (
     <View style={[styles.container, styles.main]}>
       <Text style={styles.title}>Alarms</Text>
@@ -29,9 +36,6 @@ function Header() {
         autoCapitalize="none"
         returnKeyType="search"
         />
-        <Pressable onPress={() => console.log({query})}>
-          <Text style={styles.searchButton}>Go</Text>
-        </Pressable>
       </View>
     </View>
   );

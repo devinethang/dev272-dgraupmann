@@ -39,7 +39,7 @@ const [seconds, setSeconds] = useState<string>("");
 
                 <View style={styles.searchBar}>
                     <Pressable onPress={() => console.log({hours, minutes, seconds})}>
-                    <Text style={styles.searchButton}>Set</Text>
+                    <Text style={styles.searchButton}>Start</Text>
                     </Pressable>
                 </View>
 
