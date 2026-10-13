@@ -1,11 +1,24 @@
-import { Stack } from "expo-router";
+// src/app/(tabs)/_layout.tsx
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { Tabs } from "expo-router";
 
-// Root layout. Every screen file inside src/app/ is a route.
-// Week 3 replaces this with Stack + Tabs layouts.
-export default function RootLayout() {
+export default function TabLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ title: "Alarm Manager" }} />
-    </Stack>
+    <Tabs screenOptions={{ tabBarActiveTintColor: "#2563eb" }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: "Alarms",
+          tabBarIcon: ({ color, size }) => <Ionicons name="alarm-outline" color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="timer"
+        options={{
+          title: "Timer",
+          tabBarIcon: ({ color, size }) => <Ionicons name="hourglass-outline" color={color} size={size} />,
+        }}
+      />
+    </Tabs>
   );
 }
