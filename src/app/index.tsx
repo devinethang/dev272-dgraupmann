@@ -1,4 +1,5 @@
 import { Alarm, alarms } from "@/data/alarms";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -40,7 +41,11 @@ function AlarmFolder({ alarm }: { alarm: Alarm }) {
   return (
     <View style={styles.row}>
       <Text style={styles.rowTitle}>{alarm.name}</Text>
-      <Text> {alarm.time} {alarm.selector}</Text>
+      <View style = {styles.alarmInfo}> 
+        <Text> {alarm.time} {alarm.selector} </Text>
+        <Link style={styles.editButton} href={{ pathname: "/alarms/[id]", params: {id: alarm.id } }}>Edit</Link>
+      </View>
+      
     </View>
   );
 }
@@ -93,5 +98,13 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     padding: 5
+  },
+  editButton: {
+    textAlign: 'right',
+    flexDirection: 'row',
+  },
+  alarmInfo: {
+    justifyContent: "space-between",
+    flexDirection: 'row',
   }
 });
