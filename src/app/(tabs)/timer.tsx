@@ -16,7 +16,13 @@ useEffect(() => {
     const interval = setInterval(() => {
         const timeLeft = Math.floor((endTime - Date.now()) / 1000 );
 
-        setRemaining(timeLeft);
+        if (timeLeft > 0) {
+            setRemaining(timeLeft);
+        } 
+        else {
+            setRemaining(0);
+            clearInterval(interval);
+        }
 
     }, 1000)
 
@@ -79,6 +85,8 @@ useEffect(() => {
     const s = Number(seconds);
 
     const totalSeconds = (h * 3600) + (m * 60) + s;
+    setRemaining(totalSeconds);
+
     console.log(totalSeconds);
 
     setEndTime(Date.now() + totalSeconds * 1000);
