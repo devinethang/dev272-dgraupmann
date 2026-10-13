@@ -13,13 +13,15 @@ export default function MiniTimer() {
     const mm = displayMinutes.toString().padStart(2, "0");
     const ss = displaySeconds.toString().padStart(2, "0");
 
-    <View style={[styles.item, styles.row, styles.timer]}>
+    return (
+        <View style={[styles.item, styles.row, styles.timer]}>
     
         <Text>
             {hh} : {mm} : {ss}
         </Text>
     
     </View>
+    );    
 }
 
 export const styles = StyleSheet.create({ 
