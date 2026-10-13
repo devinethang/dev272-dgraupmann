@@ -7,7 +7,9 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function alarmDetail() {
     
-  const [query, setQuery] = useState<string>("");  
+  const [alarmTime, setAlarm] = useState<string>("");
+  const [alarmName, setName] = useState<string>("");  
+
   const { id } = useLocalSearchParams<{ id: string }>();
   const alarm = alarms.find((p) => p.id === id);
 
@@ -30,28 +32,27 @@ export default function alarmDetail() {
             <TextInput
             style={styles.item} 
             placeholder={alarm.time + " " + alarm.selector}
-            value={query}
-            onChangeText={setQuery}
+            value={alarmTime}
+            onChangeText={setAlarm}
             autoCapitalize="none"
             returnKeyType="search"
             />
-            <Pressable onPress={() => console.log({query})}>
+            <Pressable onPress={() => console.log({alarmTime})}>
               <Text style={styles.searchButton}>Set</Text>
             </Pressable>
         </View>
 
 
-       
         <View style={styles.searchBar}>
             <TextInput
             style={styles.item} 
             placeholder={alarm.name}
-            value={query}
-            onChangeText={setQuery}
+            value={alarmName}
+            onChangeText={setName}
             autoCapitalize="none"
             returnKeyType="search"
             />
-            <Pressable onPress={() => console.log({query})}>
+            <Pressable onPress={() => console.log({alarmName})}>
               <Text style={styles.searchButton}>Set</Text>
             </Pressable>
         </View>
