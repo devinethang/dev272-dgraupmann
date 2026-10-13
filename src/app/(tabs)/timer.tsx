@@ -38,7 +38,7 @@ const [seconds, setSeconds] = useState<string>("");
                 </View>
 
                 <View style={styles.searchBar}>
-                    <Pressable onPress={() => console.log({hours, minutes, seconds})}>
+                    <Pressable onPress={(handleStart)}>
                     <Text style={styles.searchButton}>Start</Text>
                     </Pressable>
                 </View>
@@ -46,8 +46,27 @@ const [seconds, setSeconds] = useState<string>("");
             </View>
 
         </View>
+
+        
     )
+
+    function handleStart() {
+    const h = Number(hours);
+    const m = Number(minutes);
+    const s = Number(seconds);
+
+    const totalSeconds = (h * 3600) + (m * 60) + s;
+    console.log(totalSeconds);
+
+    const [endTime, setEndTime] = useState<number | null>(null)
+    setEndTime(Date.now() + totalSeconds * 1000);
+
+    console.log("Timer ends in: " + endTime);
+    
 }
+}
+
+
 
 export const styles = StyleSheet.create({
     Header: {
