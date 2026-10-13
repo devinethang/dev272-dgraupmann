@@ -3,6 +3,8 @@ import { Link } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
+// Comment to push Week description, remove later
+
 export default function Index() {
 
   const [query, setQuery] = useState<string>("");
