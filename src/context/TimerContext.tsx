@@ -1,0 +1,48 @@
+// src/context/FavoritesContext.tsx
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+
+type TimerContextValue = {
+  remaining: number;
+  startTimer: (totalSeconds: number) => void;
+};
+
+const TimerContext = createContext<TimerContextValue | null>(null);
+
+export function TimerProvider({ children }: { children: ReactNode }) {
+  const [endTime, setEndTime] = useState<number | null>(null);
+  const [remaining, setRemaining] = useState<number>(0);
+
+  function startTimer(totalSeconds: number) {
+    setRemaining(totalSeconds);
+    setEndTime(Date.now() + totalSeconds * 1000);
+  }
+
+  useEffect(() => {
+      if (endTime === null) {
+          return;
+      }
+  
+      const interval = setInterval(() => {
+          const timeLeft = Math.ceil((endTime - Date.now()) / 1000 );
+  
+          if (timeLeft > 0) {
+              setRemaining(timeLeft);
+          } 
+          else {
+              setRemaining(0);
+              clearInterval(interval);
+          }
+  
+      }, 1000)
+  
+      return () => clearInterval(interval);
+  
+   }, [endTime]);
+
+}
+
+export function useFavorites() {
+  const ctx = useContext(FavoritesContext);
+  if (!ctx) throw new Error("useFavorites must be used inside FavoritesProvider");
+  return ctx;
+}
