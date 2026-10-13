@@ -1,44 +1,22 @@
-import { useEffect, useState } from "react";
+import { useTimer } from "@/context/TimerContext";
+import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function index() {
-const [hours, setHours] = useState<string>("");
-const [minutes, setMinutes] = useState<string>("");
-const [seconds, setSeconds] = useState<string>("");
+    const [hours, setHours] = useState<string>("");
+    const [minutes, setMinutes] = useState<string>("");
+    const [seconds, setSeconds] = useState<string>("");
 
-const [endTime, setEndTime] = useState<number | null>(null)
-const [remaining, setRemaining] = useState<number>(0);
+    const { remaining, startTimer } = useTimer();
 
-const displayHours = Math.floor(remaining / 3600);
-const displayMinutes = Math.floor((remaining % 3600) / 60);
-const displaySeconds = Math.floor ((remaining % 60));
+    const displayHours = Math.floor(remaining / 3600);
+    const displayMinutes = Math.floor((remaining % 3600) / 60);
+    const displaySeconds = Math.floor ((remaining % 60));
 
-// formated values, converted to string
-const hh = displayHours.toString().padStart(2, "0");
-const mm = displayMinutes.toString().padStart(2, "0");
-const ss = displaySeconds.toString().padStart(2, "0");
-
-useEffect(() => {
-    if (endTime === null) {
-        return;
-    }
-
-    const interval = setInterval(() => {
-        const timeLeft = Math.ceil((endTime - Date.now()) / 1000 );
-
-        if (timeLeft > 0) {
-            setRemaining(timeLeft);
-        } 
-        else {
-            setRemaining(0);
-            clearInterval(interval);
-        }
-
-    }, 1000)
-
-    return () => clearInterval(interval);
-
- }, [endTime]);
+    // formated values, converted to string
+    const hh = displayHours.toString().padStart(2, "0");
+    const mm = displayMinutes.toString().padStart(2, "0");
+    const ss = displaySeconds.toString().padStart(2, "0");
 
     return (
         <View style={styles.body}>
@@ -97,14 +75,8 @@ useEffect(() => {
     const s = Number(seconds);
 
     const totalSeconds = (h * 3600) + (m * 60) + s;
-    setRemaining(totalSeconds);
-
-    console.log(totalSeconds);
-
-    setEndTime(Date.now() + totalSeconds * 1000);
-
-    console.log("Timer ends in: " + endTime);
     
+    startTimer(totalSeconds);
 }
 }
 

@@ -51,7 +51,7 @@ export function useTimer() {
     const context = useContext(TimerContext);
 
     // Error Hnadling
-    if (context === undefined) {
+    if (context === null) {
         throw new Error("UseTimer only works inside TimerProvider")
     }
 
