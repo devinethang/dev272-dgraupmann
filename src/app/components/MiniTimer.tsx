@@ -16,7 +16,7 @@ export default function MiniTimer() {
     return (
         <View style={[styles.item, styles.row, styles.timer]}>
             <Text>
-                Timer: {hh} hrs: {mm} mins: {ss} secs
+                Timer: {hh} hrs {mm} mins {ss} secs
             </Text>
         </View>
     );    
