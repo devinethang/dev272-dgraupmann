@@ -24,7 +24,7 @@ export default function alarmDetail() {
 
   return (
     <View style={[styles.main, styles.container]}>
-        <Stack.Screen options={{ title: "Alarm Info" }} />
+        <Stack.Screen options={{ title: alarm.name }} />
 
         <View style={styles.searchBar}>
             <TextInput
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap:10,
-    backgroundColor: '#95a7ca',
+    backgroundColor: "#95a7ca",
   },
   searchButton: {
     opacity: 10,
