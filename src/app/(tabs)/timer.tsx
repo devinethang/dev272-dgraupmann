@@ -5,8 +5,13 @@ export default function index() {
 const [hours, setHours] = useState<string>("");
 const [minutes, setMinutes] = useState<string>("");
 const [seconds, setSeconds] = useState<string>("");
+
 const [endTime, setEndTime] = useState<number | null>(null)
 const [remaining, setRemaining] = useState<number>(0);
+
+const displayHours = Math.floor(remaining / 3600);
+const displayMinutes = Math.floor((remaining % 3600) / 60);
+const displaySeconds = Math.floor ((remaining % 60));
 
 useEffect(() => {
     if (endTime === null) {
@@ -14,7 +19,7 @@ useEffect(() => {
     }
 
     const interval = setInterval(() => {
-        const timeLeft = Math.floor((endTime - Date.now()) / 1000 );
+        const timeLeft = Math.ceil((endTime - Date.now()) / 1000 );
 
         if (timeLeft > 0) {
             setRemaining(timeLeft);
@@ -66,14 +71,16 @@ useEffect(() => {
                     </Pressable>
                 </View>
 
-                <View>
-                    <Text>
-                        {remaining}
-                    </Text>
-                </View>
+                
 
             </View>
+        <View style={[styles.item, styles.row, styles.timer]}>
 
+            <Text>
+                {displayHours} : {displayMinutes} : {displaySeconds}
+            </Text>
+
+        </View>
         </View>
 
         
@@ -99,6 +106,10 @@ useEffect(() => {
 
 
 export const styles = StyleSheet.create({
+    timer: {
+        flexDirection: 'row'
+    },
+
     Header: {
         padding: 0
     },
@@ -124,12 +135,13 @@ export const styles = StyleSheet.create({
     paddingTop: 30
   },
 
-    searchButton: {
-    opacity: 10,
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 5
-  },
+    searchButton:
+    {
+        opacity: 10,
+        borderRadius: 8,
+        borderWidth: 1,
+        padding: 5
+    },
 
   searchBar: {
     flexDirection: 'row',
