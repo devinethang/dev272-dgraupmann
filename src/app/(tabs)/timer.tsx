@@ -45,6 +45,7 @@ export default function index() {
                     placeholder={"00"}
                     value={seconds}
                     onChangeText={setSeconds}
+                    keyboardType="number-pad"
                     />
                 </View>
 
