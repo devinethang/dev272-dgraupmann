@@ -28,6 +28,11 @@ export default function alarmDetail() {
     <View style={[styles.main, styles.container]}>
         <Stack.Screen options={{ title: alarm.name }} />
 
+        <View>
+          <Text>Alarm Time: {alarm.time} {alarm.selector} </Text>
+          <Text>Alarm Name: {alarm.name}</Text>
+        </View>
+
         <View style={styles.searchBar}>
             <TextInput
             style={styles.item} 
@@ -52,7 +57,7 @@ export default function alarmDetail() {
             autoCapitalize="none"
             returnKeyType="search"
             />
-            <Pressable onPress={() => console.log({alarmName})}>
+            <Pressable onPress={() => console.log({alarmName, alarmTime})}>
               <Text style={styles.searchButton}>Set</Text>
             </Pressable>
         </View>
@@ -62,7 +67,6 @@ export default function alarmDetail() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, gap: 8 },
-  title: { fontSize: 24, fontWeight: "600" },
   item: {
     fontSize: 30,
     textAlign: 'center',
