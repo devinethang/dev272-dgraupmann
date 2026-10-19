@@ -1,9 +1,9 @@
 // src/app/(tabs)/_layout.tsx
+import MiniTimer from "@/components/MiniTimer";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { BottomTabBar } from "expo-router/build/react-navigation/bottom-tabs";
 import { View } from "react-native";
-import MiniTimer from "../components/MiniTimer";
 
 export default function TabLayout() {
   return (

@@ -1,5 +1,5 @@
-import { Alarm, alarms } from "@/data/alarms";
-import { Link } from "expo-router";
+import AlarmFolder from "@/components/AlarmFolder";
+import { alarms } from "@/data/alarms";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -37,19 +37,6 @@ function Header({query, setQuery,}: {query: string; setQuery: (text: string) => 
         returnKeyType="search"
         />
       </View>
-    </View>
-  );
-}
-
-function AlarmFolder({ alarm }: { alarm: Alarm }) {
-  return (
-    <View style={styles.row}>
-      <Text style={styles.rowTitle}>{alarm.name}</Text>
-      <View style = {styles.alarmInfo}> 
-        <Text> {alarm.time} {alarm.selector} </Text>
-        <Link style={styles.editButton} href={{ pathname: "/alarms/[id]", params: {id: alarm.id } }}>Edit</Link>
-      </View>
-      
     </View>
   );
 }
