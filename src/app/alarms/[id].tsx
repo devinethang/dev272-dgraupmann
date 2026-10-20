@@ -5,26 +5,23 @@ import { Picker } from "@react-native-picker/picker";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-
-export type EditedAlarm = {
-  alarmName: string;
-  alarmTime: string;
-  selector: "AM" | "PM";
-}
+import { AlarmData, AlarmErrors } from "../utils/validateAlarm";
 
 export default function AlarmDetail() {
   
   const { id } = useLocalSearchParams<{ id: string }>();
   const alarm = alarms.find((p) => p.id === id);
   
-  const [form, setForm] = useState<EditedAlarm>({
-    alarmName: "",
-    alarmTime: "",
+  const [form, setForm] = useState<AlarmData>({
+    name: "",
+    time: "",
     selector: "AM",
   });
 
-  const updateField = <K extends keyof EditedAlarm>(key: K, value: EditedAlarm[K]) =>
-  setForm((prev) => ({ ...prev, [key]: value }));
+  const [errors, setErrors] = useState<AlarmErrors>({});
+
+  const updateField = <K extends keyof AlarmData>(key: K, value: AlarmData[K]) =>
+  setForm((current) => ({ ...current, [key]: value }));
 
 
   if (!alarm) {
@@ -57,18 +54,23 @@ export default function AlarmDetail() {
 
       <View style={[styles.searchBar]}>
         <TextInput
-          style={styles.item} 
+          style={[styles.input, errors.name && styles.inputError, styles.item]} 
           placeholder={alarm.time}
-          value={form.alarmTime}
-          onChangeText={(text) => updateField("alarmTime", text)}
+          value={form.time}
+          onChangeText={(text) => updateField("time", text)}
           autoCapitalize="none"
           returnKeyType="search"
         />
+        {errors.name ? <Text style={styles.error}>{errors.name}</Text> : null}
           
-        <Picker selectedValue={form.selector} onValueChange={(value) => updateField("selector", value)} style={styles.timeOfDay}>
+        <Picker selectedValue={form.selector} onValueChange={(value) => updateField("selector", value)}
+          style={[styles.input, errors.name && styles.inputError, styles.item, styles.timeOfDay]}>
+
           <Picker.Item label="AM" value="AM" style={styles.item} />
           <Picker.Item label="PM" value="PM" style={styles.item} />
+
         </Picker>
+        {errors.selector ? <Text style={styles.error}>{errors.name}</Text> : null}
       </View>
 
       <View>
@@ -79,14 +81,15 @@ export default function AlarmDetail() {
         <TextInput
           style={styles.item} 
           placeholder={alarm.name}
-          value={form.alarmName}
-          onChangeText={(text) => updateField("alarmName", text)}
+          value={form.name}
+          onChangeText={(text) => updateField("name", text)}
           autoCapitalize="none"
           returnKeyType="search"
         />
+        {errors.name ? <Text style={styles.error}>{errors.name}</Text> : null}
       </View>
 
-      <Pressable onPress={() =>  { Keyboard.dismiss(); editAlarm({form}); }}>
+      <Pressable onPress={() =>  { Keyboard.dismiss(); editAlarm( {form} ); }}>
         <Text style={styles.searchButton}>Save</Text>
       </Pressable>
     </View>
@@ -125,6 +128,10 @@ const styles = StyleSheet.create({
   },
   form: {
 
-  }
+  },
+  input: { borderWidth: 1, borderColor: "#9ca3af", borderRadius: 8, padding: 10 },
+  inputError: { borderColor: "#dc2626" },
+  error: { color: "#dc2626", fontSize: 12 },
+  label: { fontWeight: "600" },
 
 });

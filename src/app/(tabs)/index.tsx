@@ -1,5 +1,6 @@
 import AlarmFolder from "@/components/AlarmFolder";
 import { alarms } from "@/data/alarms";
+import { Link } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
@@ -37,6 +38,11 @@ function Header({query, setQuery,}: {query: string; setQuery: (text: string) => 
         returnKeyType="search"
         />
       </View>
+
+      <View style={styles.newAlarm}>
+        <Link style={styles.editButton} href={{ pathname: "/AddAlarm"}}>New Alarm</Link>
+      </View>
+
     </View>
   );
 }
@@ -97,5 +103,14 @@ export const styles = StyleSheet.create({
   alarmInfo: {
     justifyContent: "space-between",
     flexDirection: 'row',
+  },
+  newAlarm: {
+    flexDirection: 'row',
+    justifyContent: "center",
+    alignItems: "center",
+    gap:10,
+    backgroundColor: '#95a7ca',
+    borderRadius: 8,
+    padding: 5
   }
 });

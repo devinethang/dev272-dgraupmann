@@ -1,3 +1,26 @@
-export default function handleSubmit() {
-    
+import { AlarmData, validateAlarm } from "@/app/utils/validateAlarm";
+import { useAlarms } from "@/context/AlarmContext";
+import { useRouter } from "expo-router";
+
+export default function handleSubmit({form}: {form: AlarmData}) {
+
+const router = useRouter();
+const { addPlace } = useAlarms();
+
+const isValid = Object.keys(validateAlarm(form)).length === 0;
+
+const handleSubmit = () => {
+  const nextErrors = validateAlarm(form);
+  setErrors(nextErrors);
+  if (Object.keys(nextErrors).length > 0) return;
+
+  addAlarm({
+    id: Date.now().toString(),
+    name: form.name.trim(),
+    time: form.time.trim(),
+    selector: form.selector,
+  });
+  router.back();
+};
+
 }

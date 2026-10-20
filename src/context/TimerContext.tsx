@@ -50,7 +50,7 @@ export function TimerProvider({ children }: { children: ReactNode }) {
 export function useTimer() {
     const context = useContext(TimerContext);
 
-    // Error Hnadling
+    // Error Handling
     if (context === null) {
         throw new Error("UseTimer only works inside TimerProvider")
     }
