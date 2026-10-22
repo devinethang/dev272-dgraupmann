@@ -97,7 +97,6 @@ export default function AlarmDetail() {
             />        
           )}
         />
-        {errors.time ? <Text style={styles.error}>{errors.time.message}</Text> : null}
           
         <Controller
           control={control}
@@ -109,14 +108,19 @@ export default function AlarmDetail() {
             onValueChange={onChange}
             style={[styles.input, errors.selector && styles.inputError, styles.item, styles.timeOfDay]}
           >
-
             <Picker.Item label="AM" value="AM" style={styles.item} />
             <Picker.Item label="PM" value="PM" style={styles.item} />
           </Picker>
           )}
         />
 
-        {errors.selector ? <Text style={styles.error}>{errors.selector.message}</Text> : null}
+      </View>
+
+      <View>
+        <Text>
+          {errors.time ? <Text style={styles.error}>{errors.time.message}</Text> : null}
+          {errors.selector ? <Text style={styles.error}>{errors.selector.message}</Text> : null}
+        </Text>
       </View>
 
       <View>

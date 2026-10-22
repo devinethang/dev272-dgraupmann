@@ -59,7 +59,7 @@ export default function AddAlarm() {
               />        
             )}
           />
-          {errors.time ? <Text style={styles.error}>{errors.time.message}</Text> : null}
+          
             
           <Controller
             control={control}
@@ -78,7 +78,13 @@ export default function AddAlarm() {
             )}
           />
 
+          
+        </View>
+        <View>
+          <Text>
+          {errors.time ? <Text style={styles.error}>{errors.time.message}</Text> : null}
           {errors.selector ? <Text style={styles.error}>{errors.selector.message}</Text> : null}
+          </Text>
         </View>
 
         <View>
