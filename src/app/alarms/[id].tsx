@@ -1,27 +1,27 @@
 // src/app/alarms/[id].tsx
 import editAlarm from "@/components/EditAlarm";
 import { alarms } from "@/data/alarms";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { AlarmData, AlarmErrors } from "../utils/validateAlarm";
+import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
 
 export default function AlarmDetail() {
   
   const { id } = useLocalSearchParams<{ id: string }>();
   const alarm = alarms.find((p) => p.id === id);
   
-  const [form, setForm] = useState<AlarmData>({
-    name: "",
-    time: "",
-    selector: "AM",
-  });
+  const { control, handleSubmit, formState: { errors, isSubmitting } } =
+    useForm<AlarmFormValues, unknown, AlarmData>({
+      resolver: zodResolver(alarmSchema),
+      defaultValues: {name: "", time: "", selector: "AM"},
+      mode: "onTouched",
+    });
 
-  const [errors, setErrors] = useState<AlarmErrors>({});
+    const onSubmit = (data: AlarmData) => { Keyboard.dismiss(); editAlarm(data); };
 
-  const updateField = <K extends keyof AlarmData>(key: K, value: AlarmData[K]) =>
-  setForm((current) => ({ ...current, [key]: value }));
 
 
   if (!alarm) {
@@ -53,43 +53,69 @@ export default function AlarmDetail() {
       <Text> Alarm Time</Text>
 
       <View style={[styles.searchBar]}>
-        <TextInput
-          style={[styles.input, errors.name && styles.inputError, styles.item]} 
-          placeholder={alarm.time}
-          value={form.time}
-          onChangeText={(text) => updateField("time", text)}
-          autoCapitalize="none"
-          returnKeyType="search"
+        
+        <Controller
+          control={control}
+          name="time"
+          render={({ field: {value, onChange, onBlur } }) => (
+            <TextInput
+              style={[styles.input, errors.time && styles.inputError, styles.item]} 
+              placeholder={alarm.time}
+              value={value}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              autoCapitalize="none"
+              returnKeyType="done"
+            />        
+          )}
         />
-        {errors.name ? <Text style={styles.error}>{errors.name}</Text> : null}
+        {errors.time ? <Text style={styles.error}>{errors.time.message}</Text> : null}
           
-        <Picker selectedValue={form.selector} onValueChange={(value) => updateField("selector", value)}
-          style={[styles.input, errors.name && styles.inputError, styles.item, styles.timeOfDay]}>
+        <Controller
+          control={control}
+          name="selector"
+          render={({ field: {value, onChange} }) => (
 
-          <Picker.Item label="AM" value="AM" style={styles.item} />
-          <Picker.Item label="PM" value="PM" style={styles.item} />
+          <Picker
+            selectedValue={value}
+            onValueChange={onChange}
+            style={[styles.input, errors.selector && styles.inputError, styles.item, styles.timeOfDay]}
+          >
 
-        </Picker>
-        {errors.selector ? <Text style={styles.error}>{errors.name}</Text> : null}
+            <Picker.Item label="AM" value="AM" style={styles.item} />
+            <Picker.Item label="PM" value="PM" style={styles.item} />
+          </Picker>
+          )}
+        />
+
+        {errors.selector ? <Text style={styles.error}>{errors.selector.message}</Text> : null}
       </View>
 
       <View>
         <Text> Alarm Name</Text>
       </View>
 
-      <View style={styles.searchBar}>
-        <TextInput
-          style={styles.item} 
-          placeholder={alarm.name}
-          value={form.name}
-          onChangeText={(text) => updateField("name", text)}
-          autoCapitalize="none"
-          returnKeyType="search"
+      <View>
+        <Controller
+          control={control}
+          name="name"
+          render={({ field: {value, onChange, onBlur } }) => (
+            <TextInput
+              style={styles.item} 
+              placeholder={alarm.name}
+              value={value}
+              onChangeText={onChange}
+              autoCapitalize="none"
+              returnKeyType="search"
+              onBlur={onBlur}
+            />  
+          )}
         />
-        {errors.name ? <Text style={styles.error}>{errors.name}</Text> : null}
+        {errors.name ? <Text style={styles.error}>{errors.name.message}</Text> : null}
+
       </View>
 
-      <Pressable onPress={() =>  { Keyboard.dismiss(); editAlarm( {form} ); }}>
+      <Pressable onPress={handleSubmit(onSubmit)} disabled={isSubmitting} >
         <Text style={styles.searchButton}>Save</Text>
       </Pressable>
     </View>
@@ -113,7 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#95a7ca",
   },
   searchButton: {
-    opacity: 10,
+    opacity: 1,
     borderRadius: 8,
     borderWidth: 1,
     padding: 5

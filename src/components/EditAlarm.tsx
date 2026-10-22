@@ -1,4 +1,4 @@
-import { AlarmData, validateAlarm } from "@/app/utils/validateAlarm";
+import { AlarmData, validateAlarm } from "@/app/utils/alarmSchema";
 import { useAlarms } from "@/context/AlarmContext";
 import { useRouter } from "expo-router";
 
