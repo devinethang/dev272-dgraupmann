@@ -19,7 +19,7 @@ export default function AlarmDetail() {
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
-      defaultValues: {name: "", time: "", selector: "AM", snoose: ""},
+      defaultValues: {name: "", time: "", selector: "AM", snooze: ""},
       mode: "onTouched",
     });
 
@@ -56,7 +56,7 @@ export default function AlarmDetail() {
       <View>
         <Text>Alarm Time: {alarm.time} {alarm.selector} </Text>
         <Text>Alarm Name: {alarm.name}</Text>
-        <Text> Time added on Snooze: {alarm.snooze} </Text>
+        <Text>Time added on Snooze: {alarm.snooze} </Text>
       </View>
 
       <Text> Alarm Time</Text>
