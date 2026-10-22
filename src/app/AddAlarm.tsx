@@ -103,7 +103,7 @@ export default function AddAlarm() {
                 value={value}
                 onChangeText={onChange}
                 autoCapitalize="words"
-                returnKeyType="search"
+                returnKeyType="done"
                 onBlur={onBlur}
               />  
             )}
@@ -125,7 +125,7 @@ export default function AddAlarm() {
             value={value}
             onChangeText={onChange}
             autoCapitalize="none"
-            returnKeyType="search"
+            returnKeyType="done"
             onBlur={onBlur}
             keyboardType="number-pad"
           />  

@@ -8,7 +8,7 @@ export default function RootLayout() {
       <TimerProvider>
           <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="alarms/[id]" options={{ title: "EditAlarm" }} />
+              <Stack.Screen name="alarms/[id]" options={{ title: "Edit Alarm" }} />
               <Stack.Screen name="AddAlarm" options={{ title: "New Alarm" }} />
           </Stack>
       </TimerProvider>
