@@ -59,10 +59,10 @@ export default function AlarmDetail() {
     <View style={[styles.main, styles.container]}>
       <Stack.Screen options={{ title: alarm.name }} />
 
-      <View>
-        <Text>Alarm Time: {alarm.time} {alarm.selector} </Text>
-        <Text>Alarm Name: {alarm.name}</Text>
-        <Text>Time added on Snooze: {alarm.snooze} </Text>
+      <View style={styles.dataDisplay}>
+        <Text style={styles.fieldRow}>Alarm Time: {alarm.time} {alarm.selector} </Text>
+        <Text style={styles.fieldRow}>Alarm Name: {alarm.name}</Text>
+        <Text style={styles.fieldRow}>Time added on Snooze: {alarm.snooze} </Text>
       </View>
 
       <Text> Alarm Time</Text>

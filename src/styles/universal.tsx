@@ -125,9 +125,25 @@ export const styles = StyleSheet.create({
   label: { fontWeight: "600" },
 
   form: {
+    flexGrow: 1,
+    padding: 16,
+    gap: 16,
+    backgroundColor: colors.bg
+  },
+  timeInput: { flex: 1 },
 
+  fieldRow: { flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    fontSize: 22,
+    color: colors.text
   },
 
-  timeInput: { flex: 1 },
+  dataDisplay: {
+    backgroundColor: colors.surface,
+    borderRadius: 12,
+    padding: 16,
+    gap: 8,
+  }
 
 });
