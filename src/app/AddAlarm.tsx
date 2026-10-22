@@ -16,7 +16,7 @@ export default function AddAlarm() {
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
-      defaultValues: {name: "", time: "", selector: "AM"},
+      defaultValues: {name: "", time: "", selector: "AM", snoose: ""},
       mode: "onTouched",
   });
 
@@ -94,15 +94,36 @@ export default function AddAlarm() {
                 placeholder={"Name"}
                 value={value}
                 onChangeText={onChange}
-                autoCapitalize="none"
+                autoCapitalize="words"
                 returnKeyType="search"
                 onBlur={onBlur}
               />  
             )}
           />
           {errors.name ? <Text style={styles.error}>{errors.name.message}</Text> : null}
-
         </View>
+
+      <View>
+        <Text> Snooze (minutes) </Text>
+      </View>
+
+      <Controller
+        control={control}
+        name="snooze"
+        render={({ field: {value, onChange, onBlur } }) => (
+          <TextInput
+            style={styles.item} 
+            placeholder={"5"}
+            value={value}
+            onChangeText={onChange}
+            autoCapitalize="none"
+            returnKeyType="search"
+            onBlur={onBlur}
+            keyboardType="number-pad"
+          />  
+        )}
+      />
+      {errors.snooze ? <Text style={styles.error}>{errors.snooze.message}</Text> : null}
 
         <Pressable onPress={handleSubmit(onSubmit)} disabled={isSubmitting} >
           <Text style={styles.searchButton}>Save</Text>
