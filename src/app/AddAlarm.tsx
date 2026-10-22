@@ -1,11 +1,12 @@
 // src/app/AddAlarm.tsx
 
 import { useAlarms } from "@/context/AlarmContext";
+import { styles } from "@/styles/universal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
 import { Stack, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
 
 export default function AddAlarm() {
@@ -16,7 +17,7 @@ export default function AddAlarm() {
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
-      defaultValues: {name: "", time: "", selector: "AM", snoose: ""},
+      defaultValues: {name: "", time: "", selector: "AM", snooze: ""},
       mode: "onTouched",
   });
 
@@ -134,41 +135,3 @@ export default function AddAlarm() {
 
   );
 }
-
-export const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, gap: 8 },
-  item: {
-    fontSize: 30,
-    textAlign: 'center',
-    padding: 5
-  },
-    searchBar: {
-    flexDirection: 'row',
-    justifyContent: "center",
-    alignItems: "center",
-    gap:10,
-    backgroundColor: "#95a7ca",
-  },
-  searchButton: {
-    opacity: 1,
-    borderRadius: 8,
-    borderWidth: 1,
-    padding: 5
-  },
-  main: {
-    backgroundColor: "#b0c2e6",
-    flex: 1,
-  },
-  timeOfDay: {
-    flex: 1,
-    textAlign: "right"
-  },
-  form: {
-
-  },
-  input: { borderWidth: 1, borderColor: "#9ca3af", borderRadius: 8, padding: 10 },
-  inputError: { borderColor: "#dc2626" },
-  error: { color: "#dc2626", fontSize: 12 },
-  label: { fontWeight: "600" },
-
-});
