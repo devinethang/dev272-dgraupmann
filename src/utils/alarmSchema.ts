@@ -8,8 +8,10 @@ export const alarmSchema = z.object({
     .min(2, "Name must be at least 2 characters.")
   ,
 
-  time: z.string().trim().min(1, "Time is required."),
-  
+  time: z.string().trim().min(1, "Time is required.")
+    .regex(/^\d{1,2}:\d{2}$/, "Input time like 00:00.")
+  ,
+
   selector: z.enum(["AM", "PM"], "A time of day is required."),
 
   snooze: z.coerce
