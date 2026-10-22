@@ -21,7 +21,7 @@ export default function AlarmDetail() {
       resolver: zodResolver(alarmSchema),
       defaultValues: {
         name: alarm?.name ?? "",
-        time: alarm?.name ?? "",
+        time: alarm?.time ?? "",
         selector: alarm?.selector ?? "AM",
         snooze: String(alarm?.snooze) ?? ""},
 
