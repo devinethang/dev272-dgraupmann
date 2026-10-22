@@ -132,7 +132,8 @@ export const styles = StyleSheet.create({
   },
   timeInput: { flex: 1 },
 
-  fieldRow: { flexDirection: "row",
+  fieldRow: { 
+    flexDirection: "row",
     alignItems: "center",
     gap: 10,
     fontSize: 22,
@@ -144,6 +145,10 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     gap: 8,
+  },
+
+  alarmData: {
+    fontWeight: "600"
   }
 
 });
