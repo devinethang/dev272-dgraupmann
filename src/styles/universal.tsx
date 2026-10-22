@@ -17,7 +17,7 @@ export const colors = {
   error: "#b91c1c",
   surface: "#c9d3e7",
   text: "#111827",
-  primary: "#899ac5"
+  primary: "#9cadd8"
   
 };
 
