@@ -112,7 +112,7 @@ export default function AddAlarm() {
         name="snooze"
         render={({ field: {value, onChange, onBlur } }) => (
           <TextInput
-            style={styles.item} 
+            style={[styles.input, errors.snooze && styles.inputError, styles.item]} 
             placeholder={"5"}
             value={value}
             onChangeText={onChange}

@@ -120,7 +120,7 @@ export default function AlarmDetail() {
               value={value}
               onChangeText={onChange}
               autoCapitalize="words"
-              returnKeyType="search"
+              returnKeyType="done"
               onBlur={onBlur}
             />  
           )}
@@ -137,12 +137,12 @@ export default function AlarmDetail() {
         name="snooze"
         render={({ field: {value, onChange, onBlur } }) => (
           <TextInput
-            style={styles.item} 
+            style={[styles.input, errors.snooze && styles.inputError, styles.item]} 
             placeholder={String(alarm.snooze)}
             value={value}
             onChangeText={onChange}
             autoCapitalize="none"
-            returnKeyType="search"
+            returnKeyType="done"
             onBlur={onBlur}
             keyboardType="number-pad"
           />  
