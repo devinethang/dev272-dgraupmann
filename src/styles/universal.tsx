@@ -10,11 +10,22 @@ import { StyleSheet } from "react-native";
 
 */}
 
+// Default colors
+export const colors = {
+  bg: "#b0c2e6",
+  border: "#475569",
+  error: "#b91c1c",
+  surface: "#c9d3e7",
+  text: "#111827",
+  
+};
+
+
 
 export const styles = StyleSheet.create({
 
   main: {
-    backgroundColor: "#b0c2e6",
+    backgroundColor: colors.bg,
   },
   container: {
     flex: 1,
@@ -34,7 +45,7 @@ export const styles = StyleSheet.create({
   },
   row: {
     padding: 12,
-    backgroundColor: "#95a7ca",
+    backgroundColor: colors.bg,
     flexDirection: 'column',
     borderWidth: 1,
     borderRightWidth: 0,
@@ -51,7 +62,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap:10,
-    backgroundColor: '#95a7ca',
+    backgroundColor: colors.bg,
     borderRadius: 8,
   },
   searchButton: {
@@ -73,7 +84,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     gap:10,
-    backgroundColor: '#95a7ca',
+    backgroundColor: colors.bg,
     borderRadius: 8,
     padding: 5
   },
@@ -86,13 +97,26 @@ export const styles = StyleSheet.create({
     flex: 1,
     textAlign: "right"
   },
-  input: { borderWidth: 1, borderColor: "#9ca3af", borderRadius: 8, padding: 10 },
-  inputError: { borderColor: "#dc2626" },
-  error: { color: "#dc2626", fontSize: 12 },
+
+  input: {
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    borderRadius: 8,
+    padding: 10,
+    alignSelf: "stretch",
+    backgroundColor: colors.surface,
+    color: colors.text,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 20,
+  },
+
+  inputError: { borderColor: colors.error },
+  error: { color: colors.error, fontSize: 12 },
   label: { fontWeight: "600" },
 
   form: {
-    
+
   }
 
 });
