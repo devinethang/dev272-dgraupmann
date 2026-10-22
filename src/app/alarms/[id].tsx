@@ -6,7 +6,7 @@ import { Picker } from "@react-native-picker/picker";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
+import { AlarmData, AlarmFormValues, alarmSchema } from "../../utils/alarmSchema";
 
 export default function AlarmDetail() {
   

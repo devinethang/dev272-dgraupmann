@@ -1,11 +1,10 @@
-// src/app/alarms/[id].tsx
-import handleSubmit from "@/components/NewAlarm";
+// src/app/AddAlarm
 import { alarms } from "@/data/alarms";
 import { Picker } from "@react-native-picker/picker";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { AlarmData } from "./utils/alarmSchema";
+import { AlarmData } from "../utils/alarmSchema";
 
 export default function AlarmDetail() {
   

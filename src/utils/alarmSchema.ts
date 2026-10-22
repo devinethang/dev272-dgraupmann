@@ -14,3 +14,4 @@ export const alarmSchema = z.object({
 export type AlarmFormValues = z.input<typeof alarmSchema>;
 // What you save: rating is a number.
 export type AlarmData = z.output<typeof alarmSchema>;
+export type Alarm = AlarmData & { id: string };
