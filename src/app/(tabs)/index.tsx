@@ -38,6 +38,7 @@ function Header({query, setQuery,}: {query: string; setQuery: (text: string) => 
         onChangeText={setQuery}
         autoCapitalize="none"
         returnKeyType="search"
+        style={styles.input}
         />
       </View>
 

@@ -56,6 +56,7 @@ export default function AddAlarm() {
                 onBlur={onBlur}
                 autoCapitalize="none"
                 returnKeyType="done"
+                keyboardType="numbers-and-punctuation"
               />        
             )}
           />

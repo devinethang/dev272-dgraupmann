@@ -94,6 +94,7 @@ export default function AlarmDetail() {
               onBlur={onBlur}
               autoCapitalize="none"
               returnKeyType="done"
+              keyboardType="numbers-and-punctuation"
             />        
           )}
         />
