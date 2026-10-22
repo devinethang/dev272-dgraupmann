@@ -23,8 +23,8 @@ export default function AlarmDetail() {
         name: alarm?.name ?? "",
         time: alarm?.time ?? "",
         selector: alarm?.selector ?? "AM",
-        snooze: String(alarm?.snooze) ?? ""},
-
+        snooze: String(alarm?.snooze) ?? ""
+      },
       mode: "onTouched",
     });
 
