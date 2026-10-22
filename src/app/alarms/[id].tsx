@@ -1,9 +1,9 @@
 // src/app/alarms/[id].tsx
-import editAlarm from "@/components/EditAlarm";
-import { alarms } from "@/data/alarms";
+
+import { useAlarms } from "@/context/AlarmContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../../utils/alarmSchema";
@@ -11,7 +11,10 @@ import { AlarmData, AlarmFormValues, alarmSchema } from "../../utils/alarmSchema
 export default function AlarmDetail() {
   
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { alarms, editAlarm } = useAlarms();
+  const router = useRouter();
   const alarm = alarms.find((p) => p.id === id);
+  
   
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
@@ -20,7 +23,12 @@ export default function AlarmDetail() {
       mode: "onTouched",
     });
 
-    const onSubmit = (data: AlarmData) => { Keyboard.dismiss(); editAlarm(data); };
+    const onSubmit = (data: AlarmData) => { 
+      if (!alarm) return;
+      Keyboard.dismiss();
+      editAlarm({ ...data, id: alarm.id });
+      router.back();
+    };
 
 
 
@@ -34,10 +42,10 @@ export default function AlarmDetail() {
   }
 
   return (
-    <KeyboardAvoidingView
+  <KeyboardAvoidingView
     style={{ flex: 1 }}
     behavior={Platform.OS === "ios" ? "padding" : undefined}
->
+  >
   <ScrollView
     contentContainerStyle={styles.form}
     keyboardShouldPersistTaps="handled"
@@ -124,7 +132,7 @@ export default function AlarmDetail() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, gap: 8 },
   item: {
     fontSize: 30,
