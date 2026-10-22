@@ -14,7 +14,7 @@ export function AlarmProvider({ children }: {children: ReactNode }) {
     const [alarms, setAlarms] = useState<Alarm[]>(seedAlarms);
 
     const addAlarm = (alarm: Alarm) => setAlarms((cur) => [...cur, alarm]);
-    const editAlarm = (alarm: Alarm) => setAlarms((cur) => cur.map((a) => (addAlarm.id === alarms.id ? alarm : a)));
+    const editAlarm = (alarm: Alarm) => setAlarms((cur) => cur.map((a) => (a.id === alarm.id ? alarm : a)));
 
     return (
         <AlarmContext.Provider value={{ alarms, addAlarm, editAlarm }}>
