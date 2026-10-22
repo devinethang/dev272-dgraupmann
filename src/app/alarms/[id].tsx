@@ -19,7 +19,12 @@ export default function AlarmDetail() {
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
-      defaultValues: {name: "", time: "", selector: "AM", snooze: ""},
+      defaultValues: {
+        name: alarm?.name ?? "",
+        time: alarm?.name ?? "",
+        selector: alarm?.selector ?? "AM",
+        snooze: String(alarm?.snooze) ?? ""},
+
       mode: "onTouched",
     });
 
