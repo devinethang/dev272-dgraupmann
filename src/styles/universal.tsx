@@ -76,6 +76,10 @@ export const styles = StyleSheet.create({
   editButton: {
     textAlign: 'right',
     flexDirection: 'row',
+    alignItems: "center",
+    backgroundColor: colors.primary,
+    borderRadius: 8,
+    padding: 4
   },
   alarmInfo: {
     justifyContent: "space-between",
@@ -96,7 +100,7 @@ export const styles = StyleSheet.create({
     padding: 5
   },
   timeOfDay: {
-    flex: 1,
+    width: 130,
     backgroundColor: colors.surface,
     borderWidth: 1.5,
     borderColor: colors.border,
@@ -122,6 +126,8 @@ export const styles = StyleSheet.create({
 
   form: {
 
-  }
+  },
+
+  timeInput: { flex: 1 },
 
 });

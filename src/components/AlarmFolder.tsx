@@ -10,7 +10,7 @@ export default function AlarmFolder({ alarm }: { alarm: Alarm }) {
       <View style = {styles.alarmInfo}> 
         <Text> {alarm.time} {alarm.selector} </Text>
         <Text> Snooze Time: {alarm.snooze} </Text>
-        <Link style={styles.editButton} href={{ pathname: "/alarms/[id]", params: {id: alarm.id } }}>Edit</Link>
+        <Link style={[styles.editButton]} href={{ pathname: "/alarms/[id]", params: {id: alarm.id } }}>Edit</Link>
       </View>
       
     </View>

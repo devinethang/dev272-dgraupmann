@@ -49,7 +49,7 @@ export default function AddAlarm() {
             name="time"
             render={({ field: {value, onChange, onBlur } }) => (
               <TextInput
-                style={[styles.input, errors.time && styles.inputError, styles.item]} 
+                style={[styles.input, styles.timeInput, errors.time && styles.inputError, styles.item]} 
                 placeholder={"00:00"}
                 value={value}
                 onChangeText={onChange}

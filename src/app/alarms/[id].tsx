@@ -74,7 +74,7 @@ export default function AlarmDetail() {
           name="time"
           render={({ field: {value, onChange, onBlur } }) => (
             <TextInput
-              style={[styles.input, errors.time && styles.inputError, styles.item]} 
+              style={[styles.input, styles.timeInput, errors.time && styles.inputError, styles.item]} 
               placeholder={alarm.time}
               value={value}
               onChangeText={onChange}
