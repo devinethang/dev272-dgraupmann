@@ -91,7 +91,7 @@ export default function AddAlarm() {
             name="name"
             render={({ field: {value, onChange, onBlur } }) => (
               <TextInput
-                style={styles.item} 
+                style={[styles.input, errors.name && styles.inputError, styles.item]} 
                 placeholder={"Name"}
                 value={value}
                 onChangeText={onChange}

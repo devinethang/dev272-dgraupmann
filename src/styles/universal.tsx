@@ -17,6 +17,7 @@ export const colors = {
   error: "#b91c1c",
   surface: "#c9d3e7",
   text: "#111827",
+  primary: "#899ac5"
   
 };
 
@@ -66,10 +67,11 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
   },
   searchButton: {
-    opacity: 10,
+    backgroundColor: colors.primary,
     borderRadius: 8,
-    borderWidth: 1,
-    padding: 5
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: "center",
   },
   editButton: {
     textAlign: 'right',
@@ -95,7 +97,10 @@ export const styles = StyleSheet.create({
   },
   timeOfDay: {
     flex: 1,
-    textAlign: "right"
+    backgroundColor: colors.surface,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    borderRadius: 8,
   },
 
   input: {
