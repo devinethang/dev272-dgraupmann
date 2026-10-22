@@ -1,4 +1,4 @@
-import { Alarm } from "@/data/alarms";
+import { Alarm } from "@/utils/alarmSchema";
 import { Link } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -8,6 +8,7 @@ export default function AlarmFolder({ alarm }: { alarm: Alarm }) {
       <Text style={styles.rowTitle}>{alarm.name}</Text>
       <View style = {styles.alarmInfo}> 
         <Text> {alarm.time} {alarm.selector} </Text>
+        <Text> Snooze Time: {alarm.snooze} </Text>
         <Link style={styles.editButton} href={{ pathname: "/alarms/[id]", params: {id: alarm.id } }}>Edit</Link>
       </View>
       

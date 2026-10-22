@@ -1,10 +1,11 @@
 import AlarmFolder from "@/components/AlarmFolder";
-import { alarms } from "@/data/alarms";
+import { useAlarms } from "@/context/AlarmContext";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function Index() {
+  const { alarms } = useAlarms();
 
   const [query, setQuery] = useState<string>("");
 
