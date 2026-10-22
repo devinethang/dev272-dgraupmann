@@ -1,4 +1,5 @@
-// src/app/AddAlarm
+// src/app/AddAlarm.tsx
+
 import { useAlarms } from "@/context/AlarmContext";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
@@ -7,7 +8,7 @@ import { Controller, useForm } from "react-hook-form";
 import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
 
-export default function AlarmDetail() {
+export default function AddAlarm() {
   
   const { addAlarm } = useAlarms();
   const router = useRouter();
