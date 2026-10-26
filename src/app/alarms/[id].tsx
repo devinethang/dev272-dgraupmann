@@ -1,45 +1,49 @@
 // src/app/alarms/[id].tsx
 
-import { useAlarms } from "@/context/AlarmContext";
+import { fetchAlarm, updateAlarm } from "@/api/alarms";
 import { styles } from "@/styles/universal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../../utils/alarmSchema";
 
 export default function AlarmDetail() {
   
   const { id } = useLocalSearchParams<{ id: string }>();
-  const { alarms, editAlarm } = useAlarms();
   const router = useRouter();
-  const alarm = alarms.find((p) => p.id === id);
+  const queryClient = useQueryClient();
+
+  const { data: alarm, isPending } = useQuery({
+    queryKey: ["alarms", id],
+    queryFn: () => fetchAlarm(id),
+    enabled: !!id,
+  });
+
+  const saveAlarm = useMutation({
+    mutationFn: (input: AlarmData) => updateAlarm(id, input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["alarms"] });
+      router.back();
+    },
+    onError: (e) => Alert.alert("Could not save", e.message),
+  })
   
-  const { control, handleSubmit, formState: { errors, isSubmitting } } =
+  const { control, handleSubmit, formState: { errors } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
-      defaultValues: {
-        name: alarm?.name ?? "",
-        time: alarm?.time ?? "",
-        selector: alarm?.selector ?? "AM",
-        snooze: alarm ? String(alarm?.snooze) : ""
-      },
+      values: alarm ? {name: alarm.name, time: alarm.time, selector: alarm.selector, snooze: String(alarm.snooze)} : undefined,
       mode: "onTouched",
     });
 
-    const onSubmit = async (data: AlarmData) => { 
-      if (!alarm) return;
+    const onSubmit = (data: AlarmData) => { 
       Keyboard.dismiss();
-      try {
-            await editAlarm(alarm.id, data);
-            router.back();
-          } catch (e) {
-            Alert.alert("Could not save", e instanceof Error ? e.message : "Try again.");
-          }
+      saveAlarm.mutate(data);
     };
 
-
+  if (isPending) return <View style={styles.center}><ActivityIndicator size="large" /></View>;
 
   if (!alarm) {
     return (
@@ -172,8 +176,8 @@ export default function AlarmDetail() {
       />
       {errors.snooze ? <Text style={styles.error}>{errors.snooze.message}</Text> : null}
 
-      <Pressable onPress={handleSubmit(onSubmit)} disabled={isSubmitting} >
-        <Text style={styles.searchButton}>Save</Text>
+      <Pressable onPress={handleSubmit(onSubmit)} disabled={saveAlarm.isPending} >
+        <Text style={styles.searchButton}>{saveAlarm.isPending ? "Saving…" : "Save"}</Text>
       </Pressable>
     </View>
   </ScrollView>

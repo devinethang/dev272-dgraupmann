@@ -39,7 +39,7 @@ export default function Index() {
     <FlatList
       style={styles.main}
       data={(filteredAlarms)}
-      keyExtractor={(item) => item.id}
+      keyExtractor={( item ) => item.id}
       renderItem={({ item }) => <AlarmFolder alarm={ item } />}
       ListHeaderComponent={<Header query={query} setQuery={setQuery}/>}
       refreshControl={<RefreshControl refreshing={isRefetching} onRefresh={() => refetch()} />}

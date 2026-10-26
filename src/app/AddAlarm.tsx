@@ -1,9 +1,10 @@
 // src/app/AddAlarm.tsx
 
-import { useAlarms } from "@/context/AlarmContext";
+import { createAlarm } from "@/api/alarms";
 import { styles } from "@/styles/universal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Stack, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
@@ -11,25 +12,29 @@ import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
 
 export default function AddAlarm() {
   
-  const { addAlarm } = useAlarms();
   const router = useRouter();
+
+  const queryClient = useQueryClient();
+
+  const addAlarm = useMutation({
+    mutationFn: createAlarm,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["alarms"] });
+      router.back();
+    },
+    onError: (e) => Alert.alert("Could not save", e.message),
+  });
   
-  const { control, handleSubmit, formState: { errors, isSubmitting } } =
+  const { control, handleSubmit, formState: { errors } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
       defaultValues: {name: "", time: "", selector: "AM", snooze: ""},
       mode: "onTouched",
   });
 
-  const onSubmit = async (data: AlarmData) => {
+  const onSubmit = (data: AlarmData) => {
     Keyboard.dismiss();
-    try {
-      await addAlarm(data);
-      router.back();
-    } catch (e) {
-      Alert.alert("Could not save", e instanceof Error ? e.message : "Try again.");
-    }
-    
+    addAlarm.mutate(data);
   };
 
   return (
@@ -138,8 +143,8 @@ export default function AddAlarm() {
       />
       {errors.snooze ? <Text style={styles.error}>{errors.snooze.message}</Text> : null}
 
-        <Pressable onPress={handleSubmit(onSubmit)} disabled={isSubmitting} >
-          <Text style={styles.searchButton}>{isSubmitting ? "Saving…" : "Save"}</Text>
+        <Pressable onPress={handleSubmit(onSubmit)} disabled={addAlarm.isPending} >
+          <Text style={styles.searchButton}>{addAlarm.isPending ? "Saving…" : "Save"}</Text>
         </Pressable>
       </View>
     </ScrollView>
