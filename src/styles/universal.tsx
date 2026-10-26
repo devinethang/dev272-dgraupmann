@@ -149,6 +149,17 @@ export const styles = StyleSheet.create({
 
   alarmData: {
     fontWeight: "600"
+  },
+
+  center: { 
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8
+  },
+
+  link: {
+    color: ''
   }
 
 });

@@ -1,17 +1,30 @@
 import { AlarmProvider } from "@/context/AlarmContext";
 import { TimerProvider } from "@/context/TimerContext";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,   // data is "fresh" for a minute; no refetch on remount during that window
+      retry: 1,               // one retry on failure before showing the error
+    },
+  },
+});
+
 
 export default function RootLayout() {
   return (
-    <AlarmProvider>
-      <TimerProvider>
-          <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              <Stack.Screen name="alarms/[id]" options={{ title: "Edit Alarm" }} />
-              <Stack.Screen name="AddAlarm" options={{ title: "New Alarm" }} />
-          </Stack>
-      </TimerProvider>
-    </AlarmProvider>
+    <QueryClientProvider client={queryClient}>
+      <AlarmProvider>
+        <TimerProvider>
+            <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="alarms/[id]" options={{ title: "Edit Alarm" }} />
+                <Stack.Screen name="AddAlarm" options={{ title: "New Alarm" }} />
+            </Stack>
+        </TimerProvider>
+      </AlarmProvider>
+    </QueryClientProvider>
   );
 }
