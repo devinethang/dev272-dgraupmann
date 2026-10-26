@@ -7,16 +7,15 @@ export default function index() {
     const [minutes, setMinutes] = useState<string>("");
     const [seconds, setSeconds] = useState<string>("");
 
-    const { remaining, startTimer } = useTimer();
+    const { remaining, startTimer, lastDuration } = useTimer();
 
-    const displayHours = Math.floor(remaining / 3600);
-    const displayMinutes = Math.floor((remaining % 3600) / 60);
-    const displaySeconds = Math.floor ((remaining % 60));
-
-    // formated values, converted to string
-    const hh = displayHours.toString().padStart(2, "0");
-    const mm = displayMinutes.toString().padStart(2, "0");
-    const ss = displaySeconds.toString().padStart(2, "0");
+    // formatValues
+    const formatTime = (total: number) => {
+        const h = Math.floor(total / 3600).toString().padStart(2, "0");
+        const m = Math.floor((total % 3600) / 60).toString().padStart(2, "0");
+        const s = (total % 60).toString().padStart(2, "0");
+        return `${h}:${m}:${s}`;
+    }
 
     return (
         <View style={styles.body}>
@@ -27,6 +26,7 @@ export default function index() {
                     placeholder={"00"}
                     value={hours}
                     onChangeText={setHours}
+                    keyboardType="number-pad"
                     />
                 </View>
                 
@@ -36,6 +36,7 @@ export default function index() {
                     placeholder={"00"}
                     value={minutes}
                     onChangeText={setMinutes}
+                    keyboardType="number-pad"
                     />
                 </View>
 
@@ -55,13 +56,23 @@ export default function index() {
                     </Pressable>
                 </View>
 
+                {lastDuration ? (
+                    <View style={styles.searchBar}>
+                        <Pressable onPress={() => startTimer(lastDuration)}>
+                            <Text style={styles.searchButton}>Repeat {formatTime(lastDuration)}</Text>
+                        </Pressable>
+                    </View>
+                    ) : null
+                }
+                
+                </View>
+
                 
 
-            </View>
             <View style={[styles.item, styles.row, styles.timer]}>
 
             <Text>
-                {hh} : {mm} : {ss}
+                {formatTime(remaining)}
             </Text>
 
             </View>
@@ -115,7 +126,7 @@ export const styles = StyleSheet.create({
 
     searchButton:
     {
-        opacity: 10,
+        opacity: 1,
         borderRadius: 8,
         borderWidth: 1,
         padding: 5
