@@ -1,11 +1,12 @@
-import { Alarm } from "@/utils/alarmSchema";
+import { createAlarm, updateAlarm } from "@/api/alarms";
+import { Alarm, AlarmData } from "@/utils/alarmSchema";
 import { createContext, ReactNode, useContext, useState } from "react";
 import { alarms as seedAlarms } from "../data/alarms";
 
 type AlarmContextValue = {
     alarms: Alarm[];
-    addAlarm: (alarm: Alarm) => void;
-    editAlarm: (alarm: Alarm) => void;
+    addAlarm: (input: AlarmData) => Promise<void>;
+    editAlarm: (id: string, input: AlarmData) => Promise<void>;
 };
 
 const AlarmContext = createContext<AlarmContextValue | null>(null);
@@ -13,8 +14,15 @@ const AlarmContext = createContext<AlarmContextValue | null>(null);
 export function AlarmProvider({ children }: {children: ReactNode }) {
     const [alarms, setAlarms] = useState<Alarm[]>(seedAlarms);
 
-    const addAlarm = (alarm: Alarm) => setAlarms((cur) => [...cur, alarm]);
-    const editAlarm = (alarm: Alarm) => setAlarms((cur) => cur.map((a) => (a.id === alarm.id ? alarm : a)));
+    const addAlarm = async (input: AlarmData) => {
+        const saved = await createAlarm(input);
+        setAlarms((cur) => [saved, ...cur]);
+    };
+    
+    const editAlarm = async (id: string, input: AlarmData) => {
+        const saved = await updateAlarm(id, input);
+        setAlarms((cur) => cur.map((a) => (a.id === id ? saved : a))); 
+    }
 
     return (
         <AlarmContext.Provider value={{ alarms, addAlarm, editAlarm }}>

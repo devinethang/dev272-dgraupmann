@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
 import { Stack, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../utils/alarmSchema";
 
 export default function AddAlarm() {
@@ -21,10 +21,15 @@ export default function AddAlarm() {
       mode: "onTouched",
   });
 
-  const onSubmit = (data: AlarmData) => {
+  const onSubmit = async (data: AlarmData) => {
     Keyboard.dismiss();
-    addAlarm({ ...data, id: Date.now().toString() });
-    router.back();
+    try {
+      await addAlarm(data);
+      router.back();
+    } catch (e) {
+      Alert.alert("Could not save", e instanceof Error ? e.message : "Try again.");
+    }
+    
   };
 
   return (
@@ -134,7 +139,7 @@ export default function AddAlarm() {
       {errors.snooze ? <Text style={styles.error}>{errors.snooze.message}</Text> : null}
 
         <Pressable onPress={handleSubmit(onSubmit)} disabled={isSubmitting} >
-          <Text style={styles.searchButton}>Save</Text>
+          <Text style={styles.searchButton}>{isSubmitting ? "Saving…" : "Save"}</Text>
         </Pressable>
       </View>
     </ScrollView>

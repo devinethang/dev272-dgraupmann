@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Picker } from "@react-native-picker/picker";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, Platform, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { AlarmData, AlarmFormValues, alarmSchema } from "../../utils/alarmSchema";
 
 export default function AlarmDetail() {
@@ -28,11 +28,15 @@ export default function AlarmDetail() {
       mode: "onTouched",
     });
 
-    const onSubmit = (data: AlarmData) => { 
+    const onSubmit = async (data: AlarmData) => { 
       if (!alarm) return;
       Keyboard.dismiss();
-      editAlarm({ ...data, id: alarm.id });
-      router.back();
+      try {
+            await editAlarm(alarm.id, data);
+            router.back();
+          } catch (e) {
+            Alert.alert("Could not save", e instanceof Error ? e.message : "Try again.");
+          }
     };
 
 

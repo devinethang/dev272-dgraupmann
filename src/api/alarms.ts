@@ -1,15 +1,6 @@
 // src/api/alarms.ts
 import { supabase } from "@/lib/supabase";
-
-export type Alarm = {
-  id: string;
-  name: string;
-  time: string;
-  selector: string;
-  snooze: Int16Array;
-};
-
-export type NewAlarm = Omit<Alarm, "id" | "created_at">;
+import { Alarm, AlarmData } from "@/utils/alarmSchema";
 
 export async function fetchAlarms(): Promise<Alarm[]> {
   const { data, error } = await supabase
@@ -26,8 +17,14 @@ export async function fetchAlarm(id: string): Promise<Alarm | null> {
   return data;
 }
 
-export async function createAlarm(input: NewAlarm): Promise<Alarm> {
+export async function createAlarm(input: AlarmData): Promise<Alarm> {
   const { data, error } = await supabase.from("alarm").insert(input).select().single();
+  if (error) throw error;
+  return data;
+}
+
+export async function updateAlarm(id: string, input: AlarmData): Promise<Alarm> {
+  const { data, error } = await supabase.from("alarm").update(input).eq("id", id).select().single();
   if (error) throw error;
   return data;
 }
