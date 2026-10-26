@@ -20,8 +20,25 @@ export default function Feed() {
   };
 
   useEffect(() => {
-    load();
-  }, []);
+  const controller = new AbortController();
+
+  (async () => {
+    try {
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=10", {
+        signal: controller.signal,
+      });
+      if (!response.ok) throw new Error(`Request failed: ${response.status}`);
+      setPosts(await response.json());
+    } catch (e) {
+      if (e instanceof Error && e.name === "AbortError") return; // expected on unmount
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  })();
+
+  return () => controller.abort();
+}, []);
 
   if (loading) {
     return (
