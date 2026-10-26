@@ -16,7 +16,6 @@ export default function AlarmDetail() {
   const router = useRouter();
   const alarm = alarms.find((p) => p.id === id);
   
-  
   const { control, handleSubmit, formState: { errors, isSubmitting } } =
     useForm<AlarmFormValues, unknown, AlarmData>({
       resolver: zodResolver(alarmSchema),
