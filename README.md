@@ -1,3 +1,72 @@
+# SQL Table Setup
+create table public.alarm (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  name TEXT NOT NULL check (char_length(name) >= 2),
+  time text not null check (time ~ '^\d{1,2}:\d{2}$'),
+  selector TEXT NOT NULL,
+  snooze INTEGER NOT NULL
+);
+-- Layer 1: which roles can reach the table at all
+grant select, insert on public.alarm to anon;
+
+-- 3. Layer 2: which rows they can read and add
+alter table public.alarm enable row level security;
+
+create policy "Anyone can read items"
+  on public.alarm for select
+  to anon
+  using (true);
+
+create policy "Anyone can add items"
+  on public.alarm for insert
+  to anon
+  with check (true);
+
+grant update on public.alarm to anon;
+
+create policy "Anyone can edit alarms"
+  on public.alarm for update
+  to anon
+  using (true)
+  with check (true);
+
+-- 4. Five or more rows, using the data from your app
+insert into public.alarm (name, time, selector, snooze) values
+('Wake up', '5:30', 'AM', 5),
+('Shower', '6:00', 'AM', 5),
+('Head out', '7:45', 'AM', 5),
+('Lunch', '1:00', 'PM', 5),
+('Break', '3:00', 'PM', 5),
+('Head Home', '5:00', 'PM', 5),
+('Make Dinner', '6:30', 'PM', 5),
+('Bed', '10:00', 'PM', 5);
+
+
+# .ENV Contains
+EXPO_PUBLIC_SUPABASE_URL=LinkHere
+EXPO_PUBLIC_SUPABASE_KEY=KeyHere
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Old readme with repo info
+-------------
+
+
+
 # DEV 272 – Fall 2026 Starter App
 
 Bellevue College · Mobile Application Development Fundamentals · Tuesdays 5:30–7:40pm on Zoom

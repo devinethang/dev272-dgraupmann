@@ -59,7 +59,7 @@ export default function index() {
                 {lastDuration ? (
                     <View style={styles.searchBar}>
                         <Pressable onPress={() => startTimer(lastDuration)}>
-                            <Text style={styles.searchButton}>Repeat {formatTime(lastDuration)}</Text>
+                            <Text style={styles.searchButton}>Restart {formatTime(lastDuration)}</Text>
                         </Pressable>
                     </View>
                     ) : null
