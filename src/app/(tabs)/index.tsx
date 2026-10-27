@@ -1,4 +1,15 @@
-// Passes final checks - 10/21/2026
+// Passes final checks - 10/27/2026
+
+{/* To Do
+  Sort Alarm Entries by time so flows more naturally
+    Data type needs swapped
+    Would also help with updated alarms being put at the bottom
+  Add some more data checking for time inputs on Alarms to make sure the time is actually valid
+  Improve formatting and layout of the timer screen
+
+  Extra time
+    Add a double check if someone backs out of making a new alarm if data has been entered
+*/}
 
 import { fetchAlarms } from "@/api/alarms";
 import AlarmFolder from "@/components/AlarmFolder";
