@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.primary,
     borderRadius: 8,
-    padding: 4
+    padding: 6
   },
   alarmInfo: {
     justifyContent: "space-between",
