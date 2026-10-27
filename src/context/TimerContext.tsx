@@ -10,12 +10,13 @@ type TimerContextValue = {
 };
 
 const TimerContext = createContext<TimerContextValue | null>(null);
-  const [lastDuration, setLastDuration] = useState<number | null>(null);
-  const [hydrated, setHydrated] = useState(false);
+  
 
 export function TimerProvider({ children }: { children: ReactNode }) {
   const [endTime, setEndTime] = useState<number | null>(null);
   const [remaining, setRemaining] = useState<number>(0);
+  const [lastDuration, setLastDuration] = useState<number | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
   function startTimer(totalSeconds: number) {
     setLastDuration(totalSeconds);
