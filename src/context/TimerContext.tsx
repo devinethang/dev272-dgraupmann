@@ -1,6 +1,12 @@
 // src/context/TimerContext.tsx
 import { loadJson, saveJson, STORAGE_KEYS } from "@/lib/storage";
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 
 type TimerContextValue = {
   remaining: number;
@@ -10,7 +16,6 @@ type TimerContextValue = {
 };
 
 const TimerContext = createContext<TimerContextValue | null>(null);
-  
 
 export function TimerProvider({ children }: { children: ReactNode }) {
   const [endTime, setEndTime] = useState<number | null>(null);
@@ -31,48 +36,46 @@ export function TimerProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
-    // 2. Save on change, but not before the load has finished
+  // 2. Save on change, but not before the load has finished
   useEffect(() => {
     if (hydrated) saveJson(STORAGE_KEYS.lastTimer, lastDuration);
   }, [lastDuration, hydrated]);
 
   useEffect(() => {
-      if (endTime === null) {
-          return;
+    if (endTime === null) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      const timeLeft = Math.ceil((endTime - Date.now()) / 1000);
+
+      if (timeLeft > 0) {
+        setRemaining(timeLeft);
+      } else {
+        setRemaining(0);
+        clearInterval(interval);
       }
-  
-      const interval = setInterval(() => {
-          const timeLeft = Math.ceil((endTime - Date.now()) / 1000 );
-  
-          if (timeLeft > 0) {
-              setRemaining(timeLeft);
-          } 
-          else {
-              setRemaining(0);
-              clearInterval(interval);
-          }
-  
-      }, 1000)
-  
-      return () => clearInterval(interval);
-  
-   }, [endTime]);
+    }, 1000);
 
-   return (
-    <TimerContext.Provider value = {{ remaining, startTimer, lastDuration, hydrated}}>
-        {children}
+    return () => clearInterval(interval);
+  }, [endTime]);
+
+  return (
+    <TimerContext.Provider
+      value={{ remaining, startTimer, lastDuration, hydrated }}
+    >
+      {children}
     </TimerContext.Provider>
-   )
-
+  );
 }
 
 export function useTimer() {
-    const context = useContext(TimerContext);
+  const context = useContext(TimerContext);
 
-    // Error Handling
-    if (context === null) {
-        throw new Error("UseTimer only works inside TimerProvider")
-    }
+  // Error Handling
+  if (context === null) {
+    throw new Error("UseTimer only works inside TimerProvider");
+  }
 
-    return context;
+  return context;
 }

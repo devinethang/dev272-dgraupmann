@@ -7,29 +7,31 @@ import { View } from "react-native";
 
 export default function TabLayout() {
   return (
-    <Tabs 
+    <Tabs
       screenOptions={{ tabBarActiveTintColor: "#2563eb" }}
       tabBar={(props) => (
         <View>
-          <MiniTimer/>
-          <BottomTabBar {...props}/>
+          <MiniTimer />
+          <BottomTabBar {...props} />
         </View>
-
-      )
-    }
+      )}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Alarms",
-          tabBarIcon: ({ color, size }) => <Ionicons name="alarm-outline" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="alarm-outline" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
         name="timer"
         options={{
           title: "Timer",
-          tabBarIcon: ({ color, size }) => <Ionicons name="hourglass-outline" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="hourglass-outline" color={color} size={size} />
+          ),
         }}
       />
     </Tabs>

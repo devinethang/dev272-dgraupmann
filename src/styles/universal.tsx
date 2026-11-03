@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
-{/* 
+{
+  /* 
   Improve styling so the inputs are easier to read and tap into.
   Everything is has the same background color so the contrast is blended.
 
@@ -8,7 +9,8 @@ import { StyleSheet } from "react-native";
   
   Move styling into here so a stylesheet isn't needed at the bottom of each page and easier to update every page
 
-*/}
+*/
+}
 
 // Default colors
 export const colors = {
@@ -17,14 +19,10 @@ export const colors = {
   error: "#b91c1c",
   surface: "#c9d3e7",
   text: "#111827",
-  primary: "#9cadd8"
-  
+  primary: "#9cadd8",
 };
 
-
-
 export const styles = StyleSheet.create({
-
   main: {
     backgroundColor: colors.bg,
   },
@@ -40,29 +38,29 @@ export const styles = StyleSheet.create({
     fontWeight: "600",
     textAlign: "center",
   },
-  list: { 
+  list: {
     padding: 16,
-    gap: 0
+    gap: 0,
   },
   row: {
     padding: 12,
     backgroundColor: colors.bg,
-    flexDirection: 'column',
+    flexDirection: "column",
     borderWidth: 1,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 0,
     borderRadius: 8,
-    gap: 2
+    gap: 2,
   },
   rowTitle: {
-    fontWeight: "600" 
+    fontWeight: "600",
   },
   searchBar: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap:10,
+    gap: 10,
     backgroundColor: colors.bg,
     borderRadius: 8,
   },
@@ -74,30 +72,30 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   editButton: {
-    textAlign: 'right',
-    flexDirection: 'row',
+    textAlign: "right",
+    flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.primary,
     borderRadius: 8,
-    padding: 6
+    padding: 6,
   },
   alarmInfo: {
     justifyContent: "space-between",
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   newAlarm: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    gap:10,
+    gap: 10,
     backgroundColor: colors.bg,
     borderRadius: 8,
-    padding: 5
+    padding: 5,
   },
   item: {
     fontSize: 30,
-    textAlign: 'center',
-    padding: 5
+    textAlign: "center",
+    padding: 5,
   },
   timeOfDay: {
     width: 130,
@@ -128,16 +126,16 @@ export const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 16,
     gap: 16,
-    backgroundColor: colors.bg
+    backgroundColor: colors.bg,
   },
   timeInput: { flex: 1 },
 
-  fieldRow: { 
+  fieldRow: {
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
     fontSize: 22,
-    color: colors.text
+    color: colors.text,
   },
 
   dataDisplay: {
@@ -148,18 +146,17 @@ export const styles = StyleSheet.create({
   },
 
   alarmData: {
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
-  center: { 
+  center: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    gap: 8
+    gap: 8,
   },
 
   link: {
-    color: ''
-  }
-
+    color: "",
+  },
 });
