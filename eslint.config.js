@@ -9,3 +9,20 @@ module.exports = defineConfig([
   expoConfig,
   eslintPluginPrettierRecommended,
 ]);
+
+module.exports = defineConfig([
+  globalIgnores(["dist/*", "coverage/*", ".expo/*"]),
+  expoConfig,
+  eslintPluginPrettierRecommended,
+  {
+    files: ["**/*.ts", "**/*.tsx"],
+    rules: {
+      "no-console": "warn", // flag leftover console.log
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
+      "react-hooks/exhaustive-deps": "error", // missing useEffect deps is a bug
+    },
+  },
+]);
