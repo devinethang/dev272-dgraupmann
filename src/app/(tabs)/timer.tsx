@@ -2,7 +2,7 @@ import { useTimer } from "@/context/TimerContext";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
-export default function index() {
+export default function Index() {
     const [hours, setHours] = useState<string>("");
     const [minutes, setMinutes] = useState<string>("");
     const [seconds, setSeconds] = useState<string>("");

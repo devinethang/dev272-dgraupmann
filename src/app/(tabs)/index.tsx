@@ -1,5 +1,13 @@
 // Passes final checks - 10/27/2026
 
+import { fetchAlarms } from "@/api/alarms";
+import AlarmFolder from "@/components/AlarmFolder";
+import { styles } from "@/styles/universal";
+import { useQuery } from "@tanstack/react-query";
+import { Link } from "expo-router";
+import { useState } from "react";
+import { ActivityIndicator, FlatList, Pressable, RefreshControl, Text, TextInput, View } from "react-native";
+
 {/* To Do
   Sort Alarm Entries by time so flows more naturally
     Data type needs swapped
@@ -10,14 +18,6 @@
   Extra time
     Add a double check if someone backs out of making a new alarm if data has been entered
 */}
-
-import { fetchAlarms } from "@/api/alarms";
-import AlarmFolder from "@/components/AlarmFolder";
-import { styles } from "@/styles/universal";
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "expo-router";
-import { useState } from "react";
-import { ActivityIndicator, FlatList, Pressable, RefreshControl, Text, TextInput, View } from "react-native";
 
 
 export default function Index() {
