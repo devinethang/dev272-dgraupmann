@@ -17,7 +17,7 @@ module.exports = defineConfig([
   {
     files: ["**/*.ts", "**/*.tsx"],
     rules: {
-      "no-console": "warn", // flag leftover console.log
+      "no-console": ["warn", { allow: ["warn", "error"] }],
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_" },
