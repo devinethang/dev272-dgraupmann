@@ -8,17 +8,16 @@ function DetailStub() {
   const { id } = useLocalSearchParams<{ id: string }>();
   return <Text>Detail for {id}</Text>;
 }
+const alarm = {
+  id: "1",
+  name: "Morning",
+  time: "7:30",
+  selector: "AM" as const,
+  snooze: 5,
+};
 
 test("navigates to the detail route when pressed", async () => {
   const user = userEvent.setup();
-  const alarm = {
-    id: "1",
-    name: "Morning",
-    time: "7:30",
-    selector: "AM" as const,
-    snooze: 5,
-  };
-
   await renderRouter(
     {
       index: () => <AlarmFolder alarm={alarm} />,
@@ -26,15 +25,14 @@ test("navigates to the detail route when pressed", async () => {
     },
     { initialUrl: "/" },
   );
-
-  test("shows the alarm name", async () => {
-    await renderRouter(
-      { index: () => <AlarmFolder alarm={alarm} /> },
-      { initialUrl: "/" },
-    );
-    expect(await screen.findByText("Morning")).toBeOnTheScreen();
-  });
-
   await user.press(await screen.findByText("Edit"));
   expect(await screen.findByText("Detail for 1")).toBeOnTheScreen();
+});
+
+test("shows the alarm name", async () => {
+  await renderRouter(
+    { index: () => <AlarmFolder alarm={alarm} /> },
+    { initialUrl: "/" },
+  );
+  expect(await screen.findByText("Morning")).toBeOnTheScreen();
 });
