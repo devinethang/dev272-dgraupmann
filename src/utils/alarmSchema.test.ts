@@ -20,6 +20,12 @@ describe("alarmSchema", () => {
     expect(errorFor({ ...valid, name: "" }, "name")).toBe("Name is required.");
   });
 
+  test("requires at least 2 characters in the name", () => {
+    expect(errorFor({ ...valid, name: "K" }, "name")).toBe(
+      "Name must be at least 2 characters.",
+    );
+  });
+
   test("Rejects poorly formated time", () => {
     expect(errorFor({ ...valid, time: "530" }, "time")).toBe(
       "Input time like 00:00.",
