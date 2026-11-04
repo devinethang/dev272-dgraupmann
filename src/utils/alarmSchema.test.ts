@@ -21,7 +21,7 @@ describe("alarmSchema", () => {
   });
 
   test("requires at least 2 characters in the name", () => {
-    expect(errorFor({ ...valid, name: "K" }, "name")).toBe(
+    expect(errorFor({ ...valid, name: "M" }, "name")).toBe(
       "Name must be at least 2 characters.",
     );
   });
