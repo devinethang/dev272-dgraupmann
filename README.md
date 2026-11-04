@@ -43,6 +43,9 @@ insert into public.alarm (name, time, selector, snooze) values
 ('Bed', '10:00', 'PM', 5);
 
 
+# Scripts
+pnpm start, pnpm lint, lint:fix, pnpm format, pnpm format:check
+
 # .ENV Contains
 EXPO_PUBLIC_SUPABASE_URL=LinkHere
 EXPO_PUBLIC_SUPABASE_KEY=KeyHere

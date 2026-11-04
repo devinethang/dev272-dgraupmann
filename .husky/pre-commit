@@ -1,4 +1,4 @@
-pnpm lint
+pnpm exec lint-staged
 pnpm format:check
 pnpm exec tsc --noEmit
 pnpm test
